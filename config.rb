@@ -2,6 +2,8 @@
 # Page options, layouts, aliases and proxies
 ###
 
+ignore "/stylesheets/syntax.css.erb"
+
 # Per-page layout changes:
 #
 # With no layout
@@ -17,6 +19,7 @@ page '/*.txt', layout: false
 #  which_fake_page: "Rendering a fake page with a local variable" }
 
 # General configuration
+activate :syntax
 
 # Reload the browser automatically whenever files change
 configure :development do
