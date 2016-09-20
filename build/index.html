@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
+    <link href="/stylesheets/site.css" rel="stylesheet" />
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>ATLAS API Documentation</title>
+  </head>
+
+  <body class="index" data-spy="scroll" data-target="#sidebar">
+    <div class="container-fluid">
+  <div class="row">
+    <div id="sidebar" class="col-md-1">
+      <ul class="nav nav-pills nav-stacked">
+        <li class="nav-item"><a class="nav-link active" href="#general">General</a></li>
+        <li class="nav-item"><a class="nav-link" href="#appointments">Appointments</a></li>
+        <!--
+        <li class="nav-item">
+          <a class="nav-link" href="#job-seeker-queue">Job Seeker Queue <span class="caret"></span></a>
+
+          <ul class="nav nav-pills nav-stacked">
+            <li><a href="#job-seeker-queue-list-all">List all queue items</a></li>
+            <li><a href="#job-seeker-queue-retrieve">Retrieve a queue item</a></li>
+          </ul>
+        </li>
+      -->
+        <li class="nav-item"><a class="nav-link" href="#locations">Locations</a></li>
+        <li class="nav-item"><a class="nav-link" href="#service-types">Service Types</a></li>
+        <li class="nav-item">
+          <a class="nav-link" href="#users">Users <span class="caret"></span></a>
+
+          <ul class="nav nav-pills nav-stacked">
+            <li><a href="#users-list-all">List all users</a></li>
+            <li><a href="#users-create">Create a user</a></li>
+            <li><a href="#users-retrieve">Retrieve a user</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div id="main" class="col-md-5 offset-md-1">
+      <h2 id="general">atlas-api</h2>
+
+      <p class="lead">Welcome to the ATLAS API documentation</p>
+
+      <section class="endpoint">
+        <h4 id="appointments" class="endpoint-heading">Appointments</h4>
+
+        <pre class="endpoint-request highlight"><span class="endpoint-request-type">POST</span> /appointments HTTP/1.1</pre>
+        <p class="endpoint-description text-muted">Request an appointment</p>
+
+        <h6>Parameters</h6>
+
+        <table class="table table-sm table-bordered">
+          <thead class="thead-default">
+            <tr>
+              <th>Field</th>
+              <th>Type</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>user_id</td>
+              <td>Integer</td>
+              <td>The id of the user requesting the appointment</td>
+            </tr>
+
+            <tr>
+              <td>location_id</td>
+              <td>Integer</td>
+              <td>The id of the location that the user needs the appointment</td>
+            </tr>
+
+            <tr>
+              <td>service_type_id</td>
+              <td>Integer</td>
+              <td>The id of the service type attached to the request</td>
+            </tr>
+
+            <tr>
+              <td>in_office</td>
+              <td>Boolean</td>
+              <td>Will the appointment by in the office or virtual</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h5 class="endpoint-subheading">Example</h5>
+
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active">Request</a>
+          </li>
+        </ul>
+
+<pre class="highlight post http"><code><span class="nf">POST</span> <span class="nn">/appointments</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/vnd.api+json</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/vnd.api+json</span>
+
+<span class="p">{</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"appointments"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"location_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"service_type_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"in_office"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active">Response</a>
+          </li>
+        </ul>
+
+<pre class="highlight post http"><code><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+</code></pre>      </section>
+
+      <!-- TODO: Job Seeker Queue
+      <section class="endpoint">
+        <h4 id="job-seeker-queue" class="endpoint-heading">Job Seeker Queue</h4>
+
+        <h5 id="job-seeker-queue-list-all" class="endpoint-subheading">List all queue items</h5>
+        <pre class="endpoint-request highlight"><span class="endpoint-request-type">GET</span> /job_seeker_queues HTTP/1.1</pre>
+        <p class="endpoint-description text-muted">Return all records in the queue</p>
+
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active">Example Request</a>
+          </li>
+        </ul>
+
+<pre class="highlight post http"><code><span class="nf">POST</span> <span class="nn">/job_seeker_queues</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/vnd.api+json</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/vnd.api+json</span>
+</code></pre>
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link active">Example</a>
+  </li>
+</ul>
+
+<pre class="highlight post http"><code><span class="nf">POST</span> <span class="nn">/job_seeker_queues</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/vnd.api+json</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/vnd.api+json</span>
+</code></pre>
+        <h5 id="job-seeker-queue-retrieve" class="endpoint-subheading">Retrieve a queue item</h5>
+        <pre class="endpoint-request highlight"><span class="endpoint-request-type">GET</span> /job_seeker_queues/:job_seeker_queue_id HTTP/1.1</pre>
+        <p class="endpoint-description text-muted">Return a single record from the queue</p>
+
+        <h6>Parameters</h6>
+
+        <table class="table table-sm table-bordered">
+          <thead class="thead-default">
+            <tr>
+              <th>Field</th>
+              <th>Type</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>job_seeker_queue_id</td>
+              <td>Integer</td>
+              <td>The id of the user requesting the appointment</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active">Example</a>
+          </li>
+        </ul>
+
+<pre class="highlight post http"><code><span class="nf">POST</span> <span class="nn">/appointments</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/vnd.api+json</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/vnd.api+json</span>
+
+<span class="p">{</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"appointments"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"location_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"service_type_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"in_office"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>      </section>
+-->
+
+      <section class="endpoint">
+        <h4 id="locations" class="endpoint-heading">Locations</h4>
+
+        <pre class="endpoint-request highlight"><span class="endpoint-request-type">GET</span> /locations HTTP/1.1</pre>
+        <p class="endpoint-description text-muted">List all locations</p>
+
+        <h5 class="endpoint-subheading">Example</h5>
+
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active">Request</a>
+          </li>
+        </ul>
+
+<pre class="highlight post http"><code><span class="nf">GET</span> <span class="nn">/locations</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/vnd.api+json</span>
+</code></pre>
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active">Response</a>
+          </li>
+        </ul>
+
+<pre class="highlight post http"><code><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+
+{
+  "data": [
+    {
+      "id": "1",
+      "type": "locations",
+      "links": {
+        "self": "http://localhost:3000/locations/1"
+      },
+      "attributes": {
+        "name": "CTS",
+        "public_name": "CTS",
+        "address_1": "4662 Commercial Way",
+        "address_2": "",
+        "city": "Spring Hill",
+        "state": "FL",
+        "zip": "34608",
+        "country": "USA",
+        "telephone": "(352) 666-0333",
+        "fax": "",
+        "hidden": false,
+        "hours": ""
+      }
+    }
+  ],
+  "meta": {
+    "record_count": 1,
+    "page_count": 1
+  },
+  "links": {
+    "first": "http://localhost:3000/locations?page%5Bnumber%5D=1&amp;page%5Bsize%5D=10",
+    "last": "http://localhost:3000/locations?page%5Bnumber%5D=1&amp;page%5Bsize%5D=10"
+  }
+}
+</code></pre>      </section>
+
+      <section class="endpoint">
+        <h4 id="service-types" class="endpoint-heading">Service Types</h4>
+
+        <pre class="endpoint-request highlight"><span class="endpoint-request-type">GET</span> /service_types HTTP/1.1</pre>
+        <p class="endpoint-description text-muted">List all service types</p>
+
+        <h5 class="endpoint-subheading">Example</h5>
+
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active">Request</a>
+          </li>
+        </ul>
+
+<pre class="highlight post http"><code><span class="nf">GET</span> <span class="nn">/service_types</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/vnd.api+json</span>
+</code></pre>
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active">Response</a>
+          </li>
+        </ul>
+
+<pre class="highlight post http"><code><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+
+{
+  "data": [
+    {
+      "id": "1",
+      "type": "service_types",
+      "links": {
+        "self": "http://localhost:3000/service_types/1"
+      },
+      "attributes": {
+        "name": "Help with resumes"
+      }
+    }
+  ],
+  "meta": {
+    "record_count": 1,
+    "page_count": 1
+  },
+  "links": {
+    "first": "http://localhost:3000/service_types?page%5Bnumber%5D=1&amp;page%5Bsize%5D=10",
+    "last": "http://localhost:3000/service_types?page%5Bnumber%5D=1&amp;page%5Bsize%5D=10"
+  }
+}
+</code></pre>      </section>
+
+      <section class="endpoint">
+        <h4 id="users" class="endpoint-heading">Users</h4>
+
+        <h5 id="users-list-all" class="endpoint-subheading">List all users</h5>
+        <pre class="endpoint-request highlight"><span class="endpoint-request-type">GET</span> /users HTTP/1.1</pre>
+        <p class="endpoint-description text-muted">Return all users in the system</p>
+
+        <h6>Available Filters</h6>
+
+        <table class="table table-sm table-bordered">
+          <thead class="thead-default">
+            <tr>
+              <th>Field</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>email</td>
+              <td>Return any users that match this email address</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h5 class="endpoint-subheading">Example</h5>
+
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active">Request</a>
+          </li>
+        </ul>
+
+<pre class="highlight post http"><code><span class="nf">GET</span> <span class="nn">/users</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/vnd.api+json</span>
+</code></pre>
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active">Response</a>
+          </li>
+        </ul>
+
+<pre class="highlight post http"><code><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+
+{
+  "data": [
+    {
+      "id": "1",
+      "type": "users",
+      "links": {
+        "self": "http://localhost:3000/users/1"
+      },
+      "attributes": {
+        "firstname": "GOB",
+        "lastname": "Bluth",
+        "ssn": "123121234",
+        "username": "gbluth",
+
+        // lots of null data removed for brevity
+
+        "created": "2010-11-12T14:45:51.000Z",
+        "modified": "2010-12-10T15:20:54.000Z"
+      }
+    }
+  ],
+  "meta": {
+    "record_count": 18111,
+    "page_count": 1812
+  },
+  "links": {
+    "first": "http://localhost:3000/users?page%5Bnumber%5D=1&amp;page%5Bsize%5D=10",
+    "next": "http://localhost:3000/users?page%5Bnumber%5D=2&amp;page%5Bsize%5D=10",
+    "last": "http://localhost:3000/users?page%5Bnumber%5D=1812&amp;page%5Bsize%5D=10"
+  }
+}
+</code></pre>
+        <h5 id="users-create" class="endpoint-subheading">Create a user</h5>
+        <pre class="endpoint-request highlight"><span class="endpoint-request-type">POST</span> /users HTTP/1.1</pre>
+        <p class="endpoint-description text-muted">Create a user</p>
+
+        <h6>Parameters</h6>
+
+        <table class="table table-sm table-bordered">
+          <thead class="thead-default">
+            <tr>
+              <th>Field</th>
+              <th>Type</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>email <span class="tag tag-danger">required</label></td>
+              <td>String</td>
+              <td>The user's email (must by valid)</td>
+            </tr>
+
+            <tr>
+              <td>firstname <span class="tag tag-danger">required</label></td>
+              <td>String</td>
+              <td>The user's first name</td>
+            </tr>
+
+            <tr>
+              <td>lastname <span class="tag tag-danger">required</label></td>
+              <td>String</td>
+              <td>The user's last name</td>
+            </tr>
+
+            <tr>
+              <td>middle_initial</td>
+              <td>String</td>
+              <td>The user's middle initial</td>
+            </tr>
+
+            <tr>
+              <td>ssn <span class="tag tag-danger">required</label></td>
+              <td>String</td>
+              <td>The user's Social Security Number</td>
+            </tr>
+
+            <tr>
+              <td>address_1</td>
+              <td>String</td>
+              <td>The user's address (first line)</td>
+            </tr>
+
+            <tr>
+              <td>city</td>
+              <td>String</td>
+              <td>The user's city of residence</td>
+            </tr>
+
+            <tr>
+              <td>state</td>
+              <td>String</td>
+              <td>The user's state of residence</td>
+            </tr>
+
+            <tr>
+              <td>county</td>
+              <td>String</td>
+              <td>The user's county of residence</td>
+            </tr>
+
+            <tr>
+              <td>zip</td>
+              <td>String</td>
+              <td>The user's zip code</td>
+            </tr>
+
+            <tr>
+              <td>dob</td>
+              <td>String</td>
+              <td>The user's date of birth (Y-m-d)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h5 class="endpoint-subheading">Example</h5>
+
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active">Request</a>
+          </li>
+        </ul>
+
+<pre class="highlight post http"><code><span class="nf">POST</span> <span class="nn">/users</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/vnd.api+json</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/vnd.api+json</span>
+
+<span class="p">{</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"users"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buster@bluth.co"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"firstname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Buster"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bluth"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"ssn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"321214321"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active">Response</a>
+          </li>
+        </ul>
+
+<pre class="highlight post http"><code><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">201</span> <span class="ne">Created</span>
+
+{
+  "data": {
+    "id": "93246",
+    "type": "users",
+    "links": {
+      "self": "http://localhost:3000/users/93246"
+    },
+    "attributes": {
+      "firstname": "Buster",
+      "lastname": "Bluth",
+      "ssn": "321214321",
+      "username": "bbluth",
+
+      // lots of null data removed for brevity
+
+      "created": "2010-11-12T14:45:51.000Z",
+      "modified": "2010-12-10T15:20:54.000Z"
+    }
+  }
+}
+</code></pre>
+        <h5 id="users-retrieve" class="endpoint-subheading">Retrieve a user</h5>
+        <pre class="endpoint-request highlight"><span class="endpoint-request-type">GET</span> /users/:user_id HTTP/1.1</pre>
+        <p class="endpoint-description text-muted">Return a single user</p>
+
+        <h6>Parameters</h6>
+
+        <table class="table table-sm table-bordered">
+          <thead class="thead-default">
+            <tr>
+              <th>Field</th>
+              <th>Type</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>user_id</td>
+              <td>Integer</td>
+              <td>The id of the user</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h5 class="endpoint-subheading">Example</h5>
+
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active">Request</a>
+          </li>
+        </ul>
+
+<pre class="highlight post http"><code><span class="nf">GET</span> <span class="nn">/users/1</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/vnd.api+json</span>
+</code></pre>
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active">Response</a>
+          </li>
+        </ul>
+
+<pre class="highlight post http"><code><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+
+{
+  "data": [
+    {
+      "id": "1",
+      "type": "users",
+      "links": {
+        "self": "http://localhost:3000/users/1"
+      },
+      "attributes": {
+        "firstname": "GOB",
+        "lastname": "Bluth",
+        "ssn": "123121234",
+        "username": "gbluth",
+
+        // lots of null data removed for brevity
+
+        "created": "2010-11-12T14:45:51.000Z",
+        "modified": "2010-12-10T15:20:54.000Z"
+      }
+    }
+  ],
+  "meta": {
+    "record_count": 1,
+    "page_count": 1
+  },
+  "links": {
+    "first": "http://localhost:3000/users?page%5Bnumber%5D=1&amp;page%5Bsize%5D=10",
+    "last": "http://localhost:3000/users?page%5Bnumber%5D=1&amp;page%5Bsize%5D=10"
+  }
+}
+</code></pre>      </section>
+    </div>
+  </div>
+</div>
+
+
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
+    <script src="/javascripts/all.js"></script>
+  </body>
+</html>
